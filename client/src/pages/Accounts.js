@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { apiService } from '../services/api';
 import {
   Plus, MoreVertical, Pencil, Trash2, X, Wallet, Loader,
-  CreditCard, Save, Globe, PiggyBank, Lock, Link2, Unlink,
-  RefreshCw, CheckCircle2, AlertTriangle, ExternalLink, ChevronDown,
+  CreditCard, Save, PiggyBank, Lock, Link2, Unlink,
+  CheckCircle2, AlertTriangle, ExternalLink, ChevronDown,
 } from 'lucide-react';
 
 const PENSION_STORAGE_KEY = 'fin_pension_savings_local';
@@ -55,6 +55,7 @@ const MonobankConnector = ({ linked, onLink, onUnlink }) => {
 
   useEffect(() => {
     if (monoAccs.length > 0) { setStep('pick'); setSelectedId(monoAccs[0]?.id ?? ''); }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- run once on mount
   }, []);
 
   const connect = async () => {

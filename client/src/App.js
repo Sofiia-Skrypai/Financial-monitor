@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Plus, LogOut, User as UserIcon, Activity, Database, RefreshCcw, X } from 'lucide-react';
-import { CurrencyProvider } from './context/CurrencyContext';
 
 import { apiService } from './services/api';
 
@@ -10,14 +9,15 @@ import Sidebar     from './components/Sidebar';
 import MemberPicker from './components/MemberPicker';
 import AddTransactionModal from './components/AddTransactionModal';
 
-import Dashboard from './pages/Dashboard';
-import Import    from './pages/Import';
-import Pension   from './pages/Pension';
-import Compare   from './pages/Compare';
-import History   from './pages/History';
-import Accounts  from './pages/Accounts';
-import Users       from './pages/Users';
-import Categories  from './pages/Categories';
+// Сторінки завантажуються ліниво (code splitting), щоб зменшити початковий бандл
+const Dashboard  = lazy(() => import('./pages/Dashboard'));
+const Import     = lazy(() => import('./pages/Import'));
+const Pension    = lazy(() => import('./pages/Pension'));
+const Compare    = lazy(() => import('./pages/Compare'));
+const History    = lazy(() => import('./pages/History'));
+const Accounts   = lazy(() => import('./pages/Accounts'));
+const Users      = lazy(() => import('./pages/Users'));
+const Categories = lazy(() => import('./pages/Categories'));
 
 function App() {
   const [user, setUser]               = useState(null);
@@ -203,6 +203,7 @@ function App() {
 
           {}
           <div className="p-0">
+            <Suspense fallback={<div className="p-10 text-sm font-bold text-gray-400">Завантаження…</div>}>
             <Routes>
               <Route path="/"         element={<Dashboard user={user}/>}/>
               <Route path="/accounts" element={<Accounts  user={user}/>}/>
@@ -214,6 +215,7 @@ function App() {
               <Route path="/pension"  element={canAccessPath('/pension') ? <Pension user={user}/> : <Navigate to="/"/>}/>
               <Route path="*"         element={<Navigate to="/"/>}/>
             </Routes>
+            </Suspense>
           </div>
         </main>
 

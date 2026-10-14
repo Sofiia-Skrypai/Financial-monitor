@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { User, KeyRound, X, Check, ArrowLeft } from 'lucide-react';
+import { User, KeyRound, ArrowLeft } from 'lucide-react';
 
 const SecretGate = ({ adminName, onConfirm, onBack }) => {
   const [code, setCode]   = useState('');

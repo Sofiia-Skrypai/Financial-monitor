@@ -4,7 +4,7 @@ import axios from 'axios';
 export const fetchFinancialData = createAsyncThunk(
   'analysis/fetchData',
   async () => {
-    const response = await axios.get('http://localhost:5000/api/finance');
+    const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:5000/api'}/finance`);
     return response.data;
   }
 );

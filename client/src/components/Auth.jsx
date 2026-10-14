@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Mail, Lock, User, Eye, EyeOff, TrendingUp, BarChart2, Wallet, Copy, Check, Brain, ScanLine } from 'lucide-react';
 import MemberPicker from './MemberPicker';
+import { loadDemo, hasOwnData } from '../demo/demoData';
 
 const getPasswordStrength = (pwd) => {
   let score = 0;
@@ -223,6 +224,11 @@ const Auth = ({ onLogin }) => {
 
   const handleCodeContinue = () => { setSecretCode(null); setPendingUser(secretForUser); setSecretForUser(null); };
 
+  const handleDemo = () => {
+    if (hasOwnData() && !window.confirm('Демо-режим замінить рахунки та історію операцій у цьому браузері. Продовжити?')) return;
+    onLogin(loadDemo());
+  };
+
   const toggleMode = () => {
     setIsLogin(!isLogin); setError(''); setSuccess('');
     setFormData({ name:'', email:'', password:'', confirm:'' });
@@ -332,6 +338,9 @@ const Auth = ({ onLogin }) => {
             </form>
 
             <div style={{ textAlign:'center', marginTop:24 }}>
+              <button type="button" onClick={handleDemo} data-testid="demo-login" style={{ display:'block', width:'100%', padding:13, marginBottom:14, background:'#fff7ed', border:'1.5px dashed #fb923c', borderRadius:14, color:'#ea580c', fontSize:14, fontWeight:800, cursor:'pointer', fontFamily:'inherit' }}>
+                ▶ Переглянути демо з тестовими даними
+              </button>
               <button onClick={toggleMode} style={{ background:'none', border:'none', cursor:'pointer', fontSize:13, color:'#6366f1', fontWeight:700, fontFamily:'inherit', transition:'color 0.2s' }}
                 onMouseEnter={e => e.target.style.color='#f97316'}
                 onMouseLeave={e => e.target.style.color='#6366f1'}>

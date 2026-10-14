@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { apiService } from '../services/api';
 import {
-  Tag, Plus, Trash2, Check, X, Edit2, Bell, BellOff,
-  AlertTriangle, TrendingUp, ShoppingCart, Car, Coffee,
-  Utensils, Heart, Home, Zap, Shirt, Gift, Loader,
+  Tag, Plus, Trash2, Check, X, Edit2, Bell,
+  AlertTriangle, Loader,
 } from 'lucide-react';
 
 const CATS_KEY   = 'fin_categories_local';

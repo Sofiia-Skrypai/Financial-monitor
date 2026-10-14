@@ -5,7 +5,7 @@ import {
   Upload, FileText, CheckCircle2, Loader2, X,
   User, RefreshCw, AlertTriangle, Link2, ExternalLink,
   CreditCard, Check, ArrowRight, Loader, HelpCircle,
-  ChevronLeft, ChevronRight, Unlink, Trash2, File,
+  ChevronLeft, ChevronRight, Unlink, Trash2,
 } from 'lucide-react';
 
 const MONO_TOKEN_KEY    = 'mono_token';
@@ -23,7 +23,7 @@ const parseDate = (raw) => {
     if (!isNaN(d)) return d.toISOString();
   }
   if (typeof raw === 'string') {
-    const m = raw.match(/^(\d{1,2})[.\/-](\d{1,2})[.\/-](\d{2,4})(?:\s+(\d{1,2}:\d{2}(?::\d{2})?))?/);
+    const m = raw.match(/^(\d{1,2})[./-](\d{1,2})[./-](\d{2,4})(?:\s+(\d{1,2}:\d{2}(?::\d{2})?))?/);
     if (m) {
       const y  = m[3].length===2?`20${m[3]}`:m[3];
       const dt = `${y}-${m[2].padStart(2,'0')}-${m[1].padStart(2,'0')}${m[4]?'T'+m[4]:''}`;

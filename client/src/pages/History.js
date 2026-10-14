@@ -4,7 +4,7 @@ import { apiService } from '../services/api';
 import {
   History as HistoryIcon, ArrowDownRight, ArrowUpRight, PlusCircle,
   Trash2, Wallet, Loader, Search, SlidersHorizontal, X,
-  RotateCcw, Pencil, Check, ChevronDown,
+  RotateCcw, Pencil, Check,
 } from 'lucide-react';
 
 const getUserColor = (name) => {
@@ -278,8 +278,6 @@ const History = ({ user }) => {
   const [editing, setEditing]           = useState(null);
 
   const [newItem, setNewItem] = useState({ amount: '', category: 'Продукти', type: 'Витрата', account: '', userName: '', date: '' });
-
-  const isAdmin = user?.role === 'Адмін' && !user?.activeMemberId;
 
   const fetchAllData = async () => {
     setLoading(true);

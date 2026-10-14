@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { apiService } from '../services/api';
 import { Target, ArrowLeft, Loader2, PiggyBank, Plus, X, Save, Info } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -37,12 +37,6 @@ const IconRisk = () => (
     <path d="M9 2L16 15H2L9 2z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" fill="none"/>
     <line x1="9" y1="7" x2="9" y2="11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
     <circle cx="9" cy="13" r="0.8" fill="currentColor"/>
-  </svg>
-);
-const IconReturn = () => (
-  <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-    <polyline points="2,12 6,7 10,10 16,4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-    <polyline points="12,4 16,4 16,8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 const IconHorizon = () => (
@@ -733,10 +727,6 @@ const Pension = () => {
   };
 
 
-  const realRate = (nominalRate) => {
-    if (!inflationEnabled) return nominalRate;
-    return (1 + nominalRate) / (1 + inflationRate / 100) - 1;
-  };
 
 
   const calcFinal = (rate) => {
@@ -790,7 +780,6 @@ const Pension = () => {
     </div>
   );
 
-  const selS = STRATEGIES[selectedStrategy];
 
   return (
     <div className="ml-64 p-10 bg-[#f8f9fc] min-h-screen font-sans antialiased text-slate-900 fi-page">

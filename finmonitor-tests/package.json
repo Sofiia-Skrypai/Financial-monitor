@@ -1,11 +1,13 @@
 {
   "name": "finmonitor-tests",
   "scripts": {
-    "test":   "jest --verbose",
+    "test": "jest --verbose",
     "report": "node generate-report.js"
   },
   "devDependencies": {
-    "jest": "*",
-    "jest-environment-jsdom": "*"
-  }
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
+  },
+  "version": "1.0.0",
+  "private": true
 }

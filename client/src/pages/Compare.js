@@ -27,7 +27,6 @@ const tr = (text) => {
   return text.split('').map(c => map[c] ?? c).join('');
 };
 
-const pt = (text) => String(text || '');
 
 const fmtUAH = (n) => Number(n || 0).toLocaleString('uk-UA', { minimumFractionDigits: 2 });
 
@@ -119,11 +118,8 @@ const buildForecast = (history) => {
   const X = vals.map((_, i) => [i]);
   const trees = _rfTrain(X, vals, 100, 42);
   const preds = X.map(x => _rfPredict(trees, x));
-  const meanY = vals.reduce((a, b) => a + b, 0) / n;
   const ssRes = vals.reduce((s, y, i) => s + (y - preds[i]) ** 2, 0);
-  const ssTot = vals.reduce((s, y) => s + (y - meanY) ** 2, 0);
   const rmse = Math.round(Math.sqrt(ssRes / n));
-  const r2   = ssTot > 0 ? 1 - ssRes / ssTot : 1;
   const mape = vals.reduce((s, y, i) =>
     s + (Math.abs(y) > 1e-9 ? Math.abs((y - preds[i]) / y) : 0), 0) / n;
   const accuracyPct = Math.max(0, Math.min(100, (1 - mape) * 100));

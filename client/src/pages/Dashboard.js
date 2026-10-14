@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { apiService } from '../services/api';
 import {
-  Wallet, LineChart as LineIcon, PieChart as PieIcon,
+  LineChart as LineIcon, PieChart as PieIcon,
   ChevronLeft, ChevronRight, CreditCard, X, Save, Download,
   Users,
 } from 'lucide-react';
 import {
   ResponsiveContainer, Cell,
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
-  PieChart, Pie, Legend,
+  PieChart, Pie,
 } from 'recharts';
 
 const RATE_STORAGE_KEY = 'fin_exchange_rates';
@@ -1091,7 +1092,7 @@ const Dashboard = () => {
           return <IcoInfo/>;
         };
 
-        return (
+        return createPortal(
         <MLModalInner
           mlResult={mlResult}
           onClose={() => setShowMLModal(false)}
@@ -1101,7 +1102,8 @@ const Dashboard = () => {
           getCatIcon={getCatIcon}
           IcoForecast={IcoForecast}
           IcoAccuracy={IcoAccuracy}
-        />
+        />,
+        document.body
         );
       })()}
 

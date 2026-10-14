@@ -1,7 +1,9 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api'; 
-const IS_OFFLINE_MODE = true;
+// Налаштування через змінні оточення (див. client/.env.example).
+// За замовчуванням застосунок працює автономно: дані зберігаються в localStorage браузера.
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const IS_OFFLINE_MODE = process.env.REACT_APP_OFFLINE_MODE !== 'false';
 export const apiService = {
   
   getHistory: async () => {
