@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { User, KeyRound, ArrowLeft } from 'lucide-react';
+import { DEMO_EMAIL } from '../demo/demoData';
 
 const SecretGate = ({ adminName, onConfirm, onBack }) => {
   const [code, setCode]   = useState('');
   const [error, setError] = useState('');
+
+  const demoAccount = JSON.parse(localStorage.getItem('fin_accounts_auth') || '[]')
+    .find(a => a.name === adminName && a.email === DEMO_EMAIL);
 
   const verify = () => {
     const accounts = JSON.parse(localStorage.getItem('fin_accounts_auth') || '[]');
@@ -31,6 +35,16 @@ const SecretGate = ({ adminName, onConfirm, onBack }) => {
       <p style={{ fontSize: 13, color: '#64748b', marginBottom: 22, fontWeight: 500, lineHeight: 1.6 }}>
         Введіть секретний код, щоб увійти як <strong>{adminName}</strong>.
       </p>
+
+      {demoAccount && (
+        <div data-testid="demo-code-hint" style={{ background: '#fff7ed', border: '1.5px dashed #fb923c', borderRadius: 12, padding: '10px 14px', marginBottom: 16, fontSize: 13, color: '#9a3412', fontWeight: 600 }}>
+          Демо-акаунт: код <strong style={{ letterSpacing: '0.15em' }}>{demoAccount.secretCode}</strong>{' '}
+          <button type="button" onClick={() => { setCode(demoAccount.secretCode); setError(''); }}
+            style={{ background: 'none', border: 'none', color: '#ea580c', fontWeight: 800, cursor: 'pointer', textDecoration: 'underline', fontFamily: 'inherit', fontSize: 13, padding: 0 }}>
+            вставити
+          </button>
+        </div>
+      )}
 
       <input
         type="text"

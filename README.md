@@ -4,17 +4,19 @@
 [![Deploy](https://github.com/Sofiia-Skrypai/Financial-monitor/actions/workflows/deploy.yml/badge.svg)](https://github.com/Sofiia-Skrypai/Financial-monitor/actions/workflows/deploy.yml)
 ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-scikit--learn-3776AB?logo=python&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-95%20passing-brightgreen)
+![Tests](https://img.shields.io/badge/tests-96%20passing-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
 **An intelligent web system for tracking, analysing and forecasting household expenses using machine learning.**
-Bachelor's thesis project — Taras Shevchenko National University of Kyiv, Computer Science (122), Data Analytics track.
+Bachelor's thesis project «Intelligent system for forecasting household expenditure based on machine learning methods» —
+Taras Shevchenko National University of Kyiv, Computer Science (122), Data Analytics track.
 
 ### 🔗 [Live demo → sofiia-skrypai.github.io/Financial-monitor](https://sofiia-skrypai.github.io/Financial-monitor/)
 
 > Click **«Переглянути демо з тестовими даними»** on the login screen — the app loads 8 months of realistic
 > family transactions so you can explore the dashboards and the ML forecast in one click. No sign-up needed.
 > All data stays in your browser (localStorage). The interface is in Ukrainian.
+> Admin secret code for the demo account: **`DEMO2026`** (shown as a hint on the admin confirmation screen).
 
 ![Dashboard](docs/screenshots/dashboard.png)
 
@@ -31,6 +33,21 @@ transactions per card, but a household usually has several cards, cash, and seve
 2. **How much will we spend next month?** — a Random Forest forecast with quality metrics.
 3. **What can we optimise?** — data-driven recommendations and a retirement-savings planner.
 
+The market analysis in the thesis showed a gap: none of the reviewed personal-finance products combines operational
+transaction tracking, predictive analytics and long-term savings planning in one system. The "AS IS" business process
+of manual budgeting was modelled in **IDEF0**, and functional requirements were prioritised — all *Must have*
+requirements are implemented.
+
+## Research highlights
+
+* Compared statistical (ARIMA-family), ensemble and neural-network methods for short financial time series;
+  **Random Forest** was selected as the most robust for small samples typical of personal finance.
+* Forecast quality of the trained model: **R² = 0.88**.
+* Designed the conceptual, logical and physical data models and the system's functional decomposition.
+* **Hybrid two-stage OCR** for fiscal receipts: Tesseract.js with consensus voting as the primary channel,
+  a vision LLM as a fallback.
+* Retirement model: future value of an annuity with inflation adjustment and calculation of the required monthly contribution.
+
 ## Key features
 
 | Area | What it does |
@@ -39,7 +56,7 @@ transactions per card, but a household usually has several cards, cash, and seve
 | 🤖 **ML forecasting** | Random Forest Regressor (100 trees) trained on monthly expense series; next-month forecast with **RMSE, R², MAPE**-based accuracy; personalised saving recommendations by category |
 | ⚖️ **Comparative analysis** | Balance by account, expenses by category, period-over-period comparison, per-category forecasts; **PDF report export** (jsPDF + AutoTable, Cyrillic font) |
 | 📥 **Data import (ETL)** | Upload bank statements from **Monobank / PrivatBank** (CSV, XLS/XLSX) with automatic column mapping, date parsing and category normalisation; direct **Monobank API** sync; JSON backup / restore |
-| 🧾 **Receipt OCR** | Recognises the total amount on a photo of a receipt (Tesseract.js, `ukr+eng`) |
+| 🧾 **Receipt OCR** | Recognises the total amount on a photo of a receipt — Tesseract.js (`ukr+eng`) with consensus voting, vision-LLM fallback (needs an API key, not enabled in the public demo) |
 | 🏷️ **Categories & budget limits** | Custom categories with monthly limits and over-limit notifications |
 | 👨‍👩‍👧 **Family mode (RBAC)** | Admin + members; admin grants access to sections per member; secret-code protection for the admin profile |
 | 💰 **Retirement planner** | Future value of regular contributions (annuity formula) for conservative / moderate / aggressive strategies, with inflation adjustment |
@@ -152,6 +169,8 @@ npm test -- --watchAll=false   # React component tests
   production use requires server-side auth (hashed passwords, JWT) on top of the existing REST API.
 * The forecast uses one feature (time index); next steps — add seasonality / lag features, compare with
   SARIMA / Prophet / gradient boosting, and evaluate on a hold-out month instead of in-sample error.
+* Planned (from the thesis): automatic sync via bank APIs, an **LSTM** model to improve accuracy,
+  a mobile app, and a B2B version for fintech companies.
 * Mobile-responsive layout.
 
 ## Author
